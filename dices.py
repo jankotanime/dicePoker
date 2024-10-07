@@ -5,9 +5,13 @@ from collections import Counter
 
 def pointCount(player):
     actPoints = 0
-    dice = Counter(player["dices"])
-    for i in dice.keys():
-        actPoints += i**(1/10)*(dice[i]**2)
+    dices = player["dices"]
+    if {1, 2, 3, 4, 5}.issubset(dices) or {2, 3, 4, 5, 6}.issubset(dices):
+        actPoints += 13+sum(dices)/100
+    else:
+        dice = Counter(dices)
+        for i in dice.keys():
+            actPoints += i**(1/10)*(dice[i]**2)
     player["points"] = actPoints
 
 
