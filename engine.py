@@ -3,7 +3,7 @@ import play
 import menu
 import variables as var
 
-useableEvents = ['up', 'down', 'left', 'right', 'space', 'enter']
+useableEvents = ['up', 'down', 'left', 'right', 'space', 'enter', 'q']
 
 
 menu.chosing(None)
@@ -20,4 +20,3 @@ while var.engine:
             else:
                 menu.chosing(event.name)
 print("Program shutting down...")
-
