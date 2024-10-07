@@ -1,17 +1,12 @@
 import keyboard
-import os
+import play
 import menu
 import variables as var
 
 useableEvents = ['up', 'down', 'left', 'right', 'space', 'enter']
 
 
-def clear_terminal():
-    os.system('cls' if os.name == 'nt' else 'clear')
-
-
-def tick(event):
-    print(event.name)
+menu.chosing(None)
 
 
 while var.engine:
@@ -21,7 +16,7 @@ while var.engine:
             var.engine = False
         elif event.name in useableEvents:
             if var.play:
-                tick(event)
+                play.tick(event.name)
             else:
                 menu.chosing(event.name)
 print("Program shutting down...")
