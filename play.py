@@ -2,6 +2,8 @@ import dices
 import playVariables as var
 import display
 import graphics.play as graphic
+import bot
+import time
 
 
 def movement(event):
@@ -10,10 +12,7 @@ def movement(event):
             var.throwDices[var.currDice-1] = not var.throwDices[var.currDice-1]
         elif event == 'enter':
             dices.throwing(var.throwDices)
-            if var.players[var.currPlayer] and var.players[var.currPlayer] != 0:
-                var.currPlayer = var.currPlayer + 1
-            else:
-                var.currPlayer = 1
+            dices.moved()
         elif event == 'left' and var.currDice != 1:
             var.currDice -= 1
         elif event == 'right' and var.currDice != 5:
@@ -21,6 +20,8 @@ def movement(event):
         elif event == 'q':
             if passing():
                 passConf()
+    else:
+        bot.move()
 
 
 def twoPlayers(event):
@@ -41,3 +42,6 @@ def tick(event):
     display.displaying(graphic.displaying())
     print(var.currPlayer)
     print(var.playersStatus)
+    if var.playersStatus[var.currPlayer]["playerType"] == "bot":
+        time.sleep(0.5)
+        tick(None)
