@@ -1,4 +1,4 @@
-import dices
+import dicesManage as dices
 import playVariables as var
 import display
 import graphics.play as graphic
