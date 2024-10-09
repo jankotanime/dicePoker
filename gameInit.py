@@ -10,7 +10,6 @@ def initing():
             var.playersStatus[position] = {
                 "dices": [None, None, None, None, None],
                 "points": 0,
-                "pass": False,
                 "moves": 3,
                 "table": 0
             }
