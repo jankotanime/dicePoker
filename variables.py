@@ -10,6 +10,8 @@ currDice = 1
 throwDices = [True, True, True, True, True]
 passing = False
 
+wantToBet = 0
+
 playersStatus = {}
 # 1: {
 # "dices": [None, None, None, None, None],

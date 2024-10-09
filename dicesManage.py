@@ -22,6 +22,7 @@ def passing(event):
 
 
 def moved():
+    var.wantToBet = 0
     var.playersStatus[var.currPlayer]["points"] = pointCount(var.playersStatus[var.currPlayer]["dices"])
     var.playersStatus[var.currPlayer]["moves"] -= 1
     if len(var.players) > var.currPlayer and var.players[var.currPlayer] != 0:

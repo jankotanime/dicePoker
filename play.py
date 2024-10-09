@@ -9,15 +9,27 @@ import gameInit as init
 def movement(event):
     if var.playersStatus[var.currPlayer]["playerType"] == "player":
         if not var.passing:
+            accCash = var.playersStatus[var.currPlayer]["cash"]
+            accTable = var.playersStatus[var.currPlayer]["table"]
             if event == 'space':
                 var.throwDices[var.currDice-1] = not var.throwDices[var.currDice-1]
             elif event == 'enter':
-                dices.throwing(var.throwDices)
-                dices.moved()
+                onTableCash = [var.playersStatus[i]["table"] for i in var.playersStatus]
+                if accTable + var.wantToBet > 0 and var.wantToBet + accTable > max(onTableCash):
+                    var.playersStatus[var.currPlayer]["table"] += var.wantToBet
+                    var.playersStatus[var.currPlayer]["cash"] -= var.wantToBet
+                    dices.throwing(var.throwDices)
+                    dices.moved()
+                else:
+                    "Not enough on table"
             elif event == 'left' and var.currDice != 1:
                 var.currDice -= 1
             elif event == 'right' and var.currDice != 5:
                 var.currDice += 1
+            elif event == 'up' and 10+var.wantToBet <= accCash:
+                var.wantToBet += 10
+            elif event == 'down' and var.wantToBet-10 > 0:
+                var.wantToBet -= 10
             elif event == 'q':
                 var.passing = True
         else:

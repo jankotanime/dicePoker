@@ -152,7 +152,10 @@ def displaying():
         currWindow = (
             gameOutside[1]+
             playerUpTable(playerUp)+
-            filler*17+
+            "▏        " + str(var.playersStatus[playerUp]["table"]) + "                            ▏\n" +
+            filler*13+
+            "▏        " + str(var.playersStatus[playerDown]["table"]) + "                            ▏\n" +
+            "▏        "+str(var.wantToBet)+ "                            ▏\n"+
             playerDownTable(playerDown)+
             gameOutside[2]
         )
