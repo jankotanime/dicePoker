@@ -1,4 +1,4 @@
-players = [1, 2, 2, 2]
+players = [1, 2, 0, 0]
 difficulty = 2
 endScreen = False
 play = False

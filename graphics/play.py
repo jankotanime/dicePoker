@@ -64,7 +64,16 @@ def playerUpTable(player):
         result += "▏"
         for j in dices:
             result += dice[j][i]+"   "
-        result += "                ▏\n"
+        if i == 2:
+            result += "Player "+str(player) + "        ▏\n"
+        elif i == 3:
+            lane = str(var.playersStatus[player]["cash"])
+            result += "Cash: " + lane + (4-len(lane))*" " + "      ▏\n"
+        elif i == 4:
+            lane = str(round(var.playersStatus[player]["points"], 3))
+            result += "Points: " + lane + (7-len(lane))*" " + " ▏\n"
+        else:
+            result += "                ▏\n"
     return result
 
 
@@ -84,7 +93,17 @@ def playerDownTable(player):
     dices = var.playersStatus[player]['dices']
     result = ""
     for i in range(1, 5):
-        result += "▏                "
+        result += "▏   "
+        if i == 2:
+            result += "Player "+str(player) + "     "
+        elif i == 3:
+            lane = str(var.playersStatus[player]["cash"])
+            result += "Cash: " + lane + (4-len(lane))*" " + "   "
+        elif i == 4:
+            lane = str(round(var.playersStatus[player]["points"], 3))
+            result += "Points: " + lane + (5-len(lane))*" "
+        else:
+            result += "             "
         for j in dices:
             result += "   "+dice[j][i]
         result += "▏\n"
@@ -119,9 +138,6 @@ def playersInside(playerLeft, playerRight):
             result += dice[dicesLeft[(i-1)//4]][(i-1)%4+1]
             result += "                                                       ▏\n"
         result += 3*filler
-
-
-
     return result
 
 
