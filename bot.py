@@ -1,6 +1,5 @@
 import dicesManage
-import playVariables as var
-from collections import Counter
+import variables as var
 
 
 def move():
@@ -8,6 +7,8 @@ def move():
 
 
 def targeting(dices):
+    if dices == [None, None, None, None, None]:
+        dices = [1, 2, 3, 3, 4]
     zeroChange = [dicesManage.pointCount(dices), dices]
     oneChangeMax = [0, []]
     twoChangesMax = [0, []]
@@ -34,10 +35,10 @@ def calculating(botDices, otherDices):
         if botDices[2][0] < i[0][0]:
             return 0
         if botDices[1][0] < i[0][0] or botDices[2][0] < i[1][0]:
-            scareScore -= 0.8 / len(otherDices)
+            scareScore -= 0.3
         if botDices[0][0] < i[0][0] or botDices[1][0] < i[1][0]\
                 or botDices[2][0] < i[2][0]:
-            scareScore -= 0.2 / len(otherDices)
+            scareScore -= 0.2
         if botDices[0][0] < i[1][0] or botDices[1][0] < i[2][0]:
             scareScore -= 0.2 / len(otherDices)
         if botDices[0][0] < i[2][0]:
@@ -64,7 +65,7 @@ def thinking():
         dicesManage.throwing([True, True, True, True, True])
     else:
         botPoints = targeting(dices)
-        otherPoints = [targeting(var.playersStatus[i]["dices"]) for i in var.playersStatus if i != var.currPlayer]
+        otherPoints = [targeting(var.playersStatus[i]["dices"]) for i in var.playersStatus if {i} != var.currPlayer]
         risk = calculating(botPoints, otherPoints)
         dicesToThrow = chosingToThrow(dices, botPoints)
         if risk != 0:
@@ -72,3 +73,5 @@ def thinking():
             dicesManage.moved()
         else:
             dicesManage.passing('enter')
+
+# To add: if the bot have dices (ex.) 1, 1, 4, 5, 6 he decides to throw only 4 and 5, but should be throwing 4, 5, 6

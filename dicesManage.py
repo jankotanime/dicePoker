@@ -1,4 +1,4 @@
-import playVariables as var
+import variables as var
 import random
 from collections import Counter
 
@@ -10,7 +10,7 @@ def pointCount(dices):
     else:
         dice = Counter(dices)
         for i in dice.keys():
-            actPoints += i**(1/10)*(dice[i]**2)
+            actPoints += int(i)**(1/10)*(dice[i]**2)
     return actPoints
 
 
@@ -24,7 +24,7 @@ def passing(event):
 def moved():
     var.playersStatus[var.currPlayer]["points"] = pointCount(var.playersStatus[var.currPlayer]["dices"])
     var.playersStatus[var.currPlayer]["moves"] -= 1
-    if var.players[var.currPlayer] and var.players[var.currPlayer] != 0:
+    if len(var.players) > var.currPlayer and var.players[var.currPlayer] != 0:
         var.currPlayer = var.currPlayer + 1
     else:
         var.currPlayer = 1

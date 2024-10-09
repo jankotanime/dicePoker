@@ -1,4 +1,4 @@
-import playVariables as playVar
+import variables as playVar
 import variables as var
 
 mainMenuOutside = {
