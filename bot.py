@@ -5,7 +5,6 @@ from collections import Counter
 
 def move():
     thinking()
-    dicesManage.moved()
 
 
 def targeting(dices):
@@ -70,4 +69,6 @@ def thinking():
         dicesToThrow = chosingToThrow(dices, botPoints)
         if risk != 0:
             dicesManage.throwing(dicesToThrow)
-        else: print("pass")
+            dicesManage.moved()
+        else:
+            dicesManage.passing('enter')

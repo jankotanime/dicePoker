@@ -1,5 +1,7 @@
 players = [1, 2, 0, 0]
 difficulty = 2
+endScreen = False
+play = False
 
 currPlayer = 1
 currDice = 1

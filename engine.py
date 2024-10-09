@@ -2,6 +2,7 @@ import keyboard
 import play
 import menu
 import variables as var
+import playVariables as playvar
 
 useableEvents = ['up', 'down', 'left', 'right', 'space', 'enter', 'q']
 
@@ -15,8 +16,11 @@ while var.engine:
         if event.name == 'esc':
             var.engine = False
         elif event.name in useableEvents:
-            if var.play:
+            if playvar.play:
                 play.tick(event.name)
+            elif playvar.endScreen:
+                if event.name == 'enter':
+                    playvar.endScreen = False
             else:
                 menu.chosing(event.name)
 print("Program shutting down...")

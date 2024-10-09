@@ -14,6 +14,13 @@ def pointCount(dices):
     return actPoints
 
 
+def passing(event):
+    var.passing = False
+    if event == 'enter':
+        var.playersStatus[var.currPlayer]["moves"] = 0
+        moved()
+
+
 def moved():
     var.playersStatus[var.currPlayer]["points"] = pointCount(var.playersStatus[var.currPlayer]["dices"])
     var.playersStatus[var.currPlayer]["moves"] -= 1

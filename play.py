@@ -21,7 +21,7 @@ def movement(event):
             elif event == 'q':
                 var.passing = True
         else:
-            passing(event)
+            dices.passing(event)
     else:
         bot.move()
 
@@ -31,22 +31,26 @@ def twoPlayers(event):
     display.displaying(graphic.displaying())
 
 
-def passing(event):
-    var.passing = False
-    if event == 'enter':
-        var.playersStatus[var.currPlayer]["moves"] = 0
+def actPlayer():
+    return var.playersStatus[var.currPlayer]
+
+
+def endGame():
+    var.endScreen = True
+    var.play = False
 
 
 def tick(event):
-    actPlayer = var.playersStatus[var.currPlayer]
-    if actPlayer["moves"] > 0:
+    isAnyPlayer = any(var.playersStatus[x]["moves"] > 0 for x in var.playersStatus)
+    if not isAnyPlayer:
+        endGame()
+    if actPlayer()["moves"] > 0:
         movement(event)
+        display.displaying(graphic.displaying())
+        if actPlayer()["playerType"] == "bot":
+            tick(None)
     else:
         dices.moved()
     display.displaying(graphic.displaying())
     print(var.currPlayer)
     print(var.playersStatus)
-    endGame = any(var.playersStatus[x]["moves"] > 0 for x in var.playersStatus)
-    if ((actPlayer["playerType"] == "bot" and actPlayer["moves"] > 0) or actPlayer["moves"] <= 0) and endGame:
-        time.sleep(0.5)
-        tick(None)

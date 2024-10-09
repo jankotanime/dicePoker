@@ -47,10 +47,10 @@ def chosing(event):
     elif var.menuStatus == 10:
         if event == 'enter' or event == 'space':
             var.menuStatus = 1
-            var.play = True
+            playVar.play = True
         elif event == 'up':
             var.menuStatus -= 1
-    if var.play:
+    if playVar.play:
         gameInit.initing()
     else:
         display.displaying(graphic.displaying(var.menuStatus))
