@@ -153,7 +153,9 @@ def displaying():
             gameOutside[1]+
             playerUpTable(playerUp)+
             "▏        " + str(var.playersStatus[playerUp]["table"]) + "                            ▏\n" +
-            filler*13+
+            "▏        " + str(var.playersStatus[playerUp]["moves"]) + "                            ▏\n" +
+
+            filler*12+
             "▏        " + str(var.playersStatus[playerDown]["table"]) + "                            ▏\n" +
             "▏        "+str(var.wantToBet)+ "                            ▏\n"+
             playerDownTable(playerDown)+

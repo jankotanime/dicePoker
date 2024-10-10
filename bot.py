@@ -59,19 +59,27 @@ def chosingToThrow(dices, botPoints):
     return dicesToThrow
 
 
+def beting(dices):
+    botPoints = targeting(dices)
+    otherPoints = [targeting(var.playersStatus[i]["dices"]) for i in var.playersStatus if {i} != var.currPlayer]
+    risk = calculating(botPoints, otherPoints)
+    dicesToThrow = chosingToThrow(dices, botPoints)
+    onTableCash = [var.playersStatus[i]["table"] for i in var.playersStatus]
+    diff = (risk**(var.playersStatus[var.currPlayer]["moves"])/3) * (var.playersStatus[var.currPlayer]["cash"] + var.playersStatus[var.currPlayer]["table"])
+    if diff >= max(onTableCash):
+        var.playersStatus[var.currPlayer]["cash"] -= diff
+        var.playersStatus[var.currPlayer]["table"] += diff
+        dicesManage.throwing(dicesToThrow)
+        dicesManage.moved()
+    else:
+        dicesManage.passing('enter')
+
+
 def thinking():
     dices = var.playersStatus[var.currPlayer]["dices"]
     if dices == [None, None, None, None, None]:
         dicesManage.throwing([True, True, True, True, True])
     else:
-        botPoints = targeting(dices)
-        otherPoints = [targeting(var.playersStatus[i]["dices"]) for i in var.playersStatus if {i} != var.currPlayer]
-        risk = calculating(botPoints, otherPoints)
-        dicesToThrow = chosingToThrow(dices, botPoints)
-        if risk != 0:
-            dicesManage.throwing(dicesToThrow)
-            dicesManage.moved()
-        else:
-            dicesManage.passing('enter')
+        beting(dices)
 
 # To add: if the bot have dices (ex.) 1, 1, 4, 5, 6 he decides to throw only 4 and 5, but should be throwing 4, 5, 6
