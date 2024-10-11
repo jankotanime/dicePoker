@@ -64,7 +64,12 @@ def chosingToThrow(dices, botPoints):
     return dicesToThrow
 
 
+def botRounder(cash):
+    return (cash//100)*100
+
+
 # Thinking if risk is worth playing
+# TODO: upgrade the betting
 def beting(dices):
     botPoints = targeting(dices)
     otherPoints = [targeting(var.playersStatus[i]["dices"]) for i in var.playersStatus if {i} != var.currPlayer]
@@ -74,13 +79,13 @@ def beting(dices):
     else:
         dicesToThrow = chosingToThrow(dices, botPoints)
     onTableCash = [var.playersStatus[i]["table"] for i in var.playersStatus]
-    diff = (var.playersStatus[var.currPlayer]["table"] + var.playersStatus[var.currPlayer]["cash"])*risk
-    if diff >= max(onTableCash) and risk > 0.7:
-        var.playersStatus[var.currPlayer]["cash"] -= diff
-        var.playersStatus[var.currPlayer]["table"] += diff
+    diff = var.playersStatus[var.currPlayer]["table"] + var.playersStatus[var.currPlayer]["cash"]
+    if diff >= max(onTableCash) and risk > 0.7 and var.playersStatus[var.currPlayer]["moves"]:
+        var.playersStatus[var.currPlayer]["cash"] -= diff*risk
+        var.playersStatus[var.currPlayer]["table"] += diff*risk
         dicesManage.throwing(dicesToThrow)
         dicesManage.moved()
-    elif diff >= max(onTableCash) and risk > 0:
+    elif diff*risk >= max(onTableCash) and risk > 0:
         var.playersStatus[var.currPlayer]["cash"] -= max(onTableCash) - var.playersStatus[var.currPlayer]["table"]
         var.playersStatus[var.currPlayer]["table"] += max(onTableCash) - var.playersStatus[var.currPlayer]["table"]
         dicesManage.throwing(dicesToThrow)
@@ -92,6 +97,5 @@ def beting(dices):
         dicesManage.moved()
     else:
         dicesManage.passing('enter')
-        dicesManage.moved()
 
 # TODO: if the bot have dices (ex.) 1, 1, 4, 5, 6 he decides to throw only 4 and 5, but should be throwing 4, 5, 6

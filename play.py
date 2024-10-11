@@ -27,12 +27,14 @@ def movement(event):
                 var.currDice -= 1
             elif event == 'right' and var.currDice != 5:
                 var.currDice += 1
-            elif event == 'up' and 10+var.wantToBet <= accCash:
+            elif event == 'up' and 10+var.wantToBet <= accCash and var.playersStatus[var.currPlayer]["moves"] > 1:
                 var.wantToBet += 10
-            elif event == 'down' and var.wantToBet-10 > 0:
+            elif event == 'down' and var.wantToBet-10 >= 0:
                 var.wantToBet -= 10
             elif event == 'q':
                 var.passing = True
+            elif event == 'v' and var.playersStatus[var.currPlayer]["moves"] > 1:
+                var.wantToBet = var.playersStatus[var.currPlayer]["cash"]
         else:
             dices.passing(event)
     else:

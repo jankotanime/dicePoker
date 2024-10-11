@@ -10,6 +10,8 @@ currDice = 1
 throwDices = [True, True, True, True, True]
 passing = False
 
+fullTable = 0
+
 wantToBet = 0
 
 playersStatus = {}

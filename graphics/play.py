@@ -152,12 +152,13 @@ def displaying():
         currWindow = (
             gameOutside[1]+
             playerUpTable(playerUp)+
-            "▏        " + str(var.playersStatus[playerUp]["table"]) + "                            ▏\n" +
-            "▏        " + str(var.playersStatus[playerUp]["moves"]) + "                            ▏\n" +
-
-            filler*12+
-            "▏        " + str(var.playersStatus[playerDown]["table"]) + "                            ▏\n" +
-            "▏        "+str(var.wantToBet)+ "                            ▏\n"+
+            "▏        bet: " + str(var.playersStatus[playerUp]["table"]) +(48-len(str(var.playersStatus[playerUp]["table"])))*" "+ "▏\n" +
+            "▏        moves left: " + str(var.playersStatus[playerUp]["moves"]) + "                                        ▏\n" +
+            filler * 6 +
+            "▏              Current on table:"+str(var.fullTable)+"                             ▏\n" +
+            filler*5+
+            "▏        bet: " + str(var.playersStatus[playerDown]["table"]) +(48-len(str(var.playersStatus[playerDown]["table"])))*" "+ "▏\n" +
+            "▏        want to bet: "+str(var.wantToBet)+(40-len(str(var.wantToBet)))*" "+ "▏\n" +
             playerDownTable(playerDown)+
             gameOutside[2]
         )
