@@ -4,6 +4,7 @@ import display
 import variables as var
 
 
+# TODO: Improve the code, god look at that...
 def chosing(event):
     if var.menuStatus == 1:
         if event == 'enter' or event == 'space':

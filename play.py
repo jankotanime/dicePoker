@@ -6,6 +6,7 @@ import bot
 import gameInit as init
 
 
+# Processing what human player want to do or if the player is computer it makes him to move
 def movement(event):
     if var.playersStatus[var.currPlayer]["playerType"] == "player":
         if not var.passing:
@@ -36,11 +37,6 @@ def movement(event):
             dices.passing(event)
     else:
         bot.move()
-
-
-def twoPlayers(event):
-    movement(event)
-    display.displaying(graphic.displaying())
 
 
 def actPlayer():

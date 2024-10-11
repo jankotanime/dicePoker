@@ -1,3 +1,5 @@
+# Main game file - loop that makes ticks every keyboard event. Picks in which state program should be
+
 import keyboard
 import play
 import menu

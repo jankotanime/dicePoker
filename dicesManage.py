@@ -3,6 +3,7 @@ import random
 from collections import Counter
 
 
+# Counting amount of points that are given to dices combination
 def pointCount(dices):
     actPoints = 0
     if {1, 2, 3, 4, 5}.issubset(dices) or {2, 3, 4, 5, 6}.issubset(dices):
@@ -14,6 +15,7 @@ def pointCount(dices):
     return actPoints
 
 
+# Checking if the player really want to pass
 def passing(event):
     var.passing = False
     if event == 'enter':
@@ -21,6 +23,7 @@ def passing(event):
         moved()
 
 
+# Function that inform program that player has moved: changing actual player, arrangement of dices etc.
 def moved():
     var.wantToBet = 0
     var.playersStatus[var.currPlayer]["points"] = pointCount(var.playersStatus[var.currPlayer]["dices"])
@@ -40,6 +43,7 @@ def randomNumber():
     return result
 
 
+# Randomizing thrown dices
 def throwing(dices):
     for i in range(0, 5):
         if dices[i]:

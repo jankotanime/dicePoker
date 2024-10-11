@@ -1,3 +1,4 @@
+# Game starting and ending functions
 import variables as var
 import display
 import graphics.play as graphic

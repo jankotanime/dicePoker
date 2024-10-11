@@ -3,9 +3,16 @@ import variables as var
 
 
 def move():
-    thinking()
+    dices = var.playersStatus[var.currPlayer]["dices"]
+    # TODO: cannot pass in first turn (what if I smb has 5 x 6 in first turn?)
+    if dices == [None, None, None, None, None]:
+        dicesManage.throwing([True, True, True, True, True])
+        dicesManage.moved()
+    else:
+        beting(dices)
 
 
+# Calculating best movements that can player do
 def targeting(dices):
     if dices == [None, None, None, None, None]:
         dices = [1, 2, 3, 3, 4]
@@ -29,6 +36,7 @@ def targeting(dices):
     return [zeroChange, oneChangeMax, twoChangesMax]
 
 
+# Calculating scare level which decides about passing and betting
 def calculating(botDices, otherDices):
     scareScore = 1
     for i in otherDices:
@@ -42,13 +50,14 @@ def calculating(botDices, otherDices):
         if botDices[0][0] < i[1][0] or botDices[1][0] < i[2][0]:
             scareScore -= 0.2 / len(otherDices)
         if botDices[0][0] < i[2][0]:
-            scareScore -= 0.1 / len(otherDices)
+            scareScore -= 0.2 / len(otherDices)
     if scareScore <= 0:
         return 0
     else:
         return scareScore
 
 
+# Deciding which dices shoulld be thrown
 def chosingToThrow(dices, botPoints):
     if botPoints[2][0]+3 >= dicesManage.pointCount(dices):
         dicesToThrow = [botPoints[2][1][i] != dices[i] for i in range(5)]
@@ -59,14 +68,20 @@ def chosingToThrow(dices, botPoints):
     return dicesToThrow
 
 
+# Thinking if risk is worth playing
 def beting(dices):
     botPoints = targeting(dices)
     otherPoints = [targeting(var.playersStatus[i]["dices"]) for i in var.playersStatus if {i} != var.currPlayer]
     risk = calculating(botPoints, otherPoints)
     dicesToThrow = chosingToThrow(dices, botPoints)
     onTableCash = [var.playersStatus[i]["table"] for i in var.playersStatus]
-    diff = (risk**(var.playersStatus[var.currPlayer]["moves"])/3) * (var.playersStatus[var.currPlayer]["cash"] + var.playersStatus[var.currPlayer]["table"])
-    if diff >= max(onTableCash):
+    diff = (var.playersStatus[var.currPlayer]["table"] + var.playersStatus[var.currPlayer]["cash"])*risk
+    if diff >= max(onTableCash) and risk > 0.5:
+        var.playersStatus[var.currPlayer]["cash"] -= diff
+        var.playersStatus[var.currPlayer]["table"] += diff
+        dicesManage.throwing(dicesToThrow)
+        dicesManage.moved()
+    elif diff >= max(onTableCash) and risk > 0.5:
         var.playersStatus[var.currPlayer]["cash"] -= diff
         var.playersStatus[var.currPlayer]["table"] += diff
         dicesManage.throwing(dicesToThrow)
@@ -74,12 +89,4 @@ def beting(dices):
     else:
         dicesManage.passing('enter')
 
-
-def thinking():
-    dices = var.playersStatus[var.currPlayer]["dices"]
-    if dices == [None, None, None, None, None]:
-        dicesManage.throwing([True, True, True, True, True])
-    else:
-        beting(dices)
-
-# To add: if the bot have dices (ex.) 1, 1, 4, 5, 6 he decides to throw only 4 and 5, but should be throwing 4, 5, 6
+# TODO: if the bot have dices (ex.) 1, 1, 4, 5, 6 he decides to throw only 4 and 5, but should be throwing 4, 5, 6
