@@ -5,11 +5,7 @@ import variables as var
 def move():
     dices = var.playersStatus[var.currPlayer]["dices"]
     # TODO: cannot pass in first turn (what if I smb has 5 x 6 in first turn?)
-    if dices == [None, None, None, None, None]:
-        dicesManage.throwing([True, True, True, True, True])
-        dicesManage.moved()
-    else:
-        beting(dices)
+    beting(dices)
 
 
 # Calculating best movements that can player do
@@ -73,20 +69,29 @@ def beting(dices):
     botPoints = targeting(dices)
     otherPoints = [targeting(var.playersStatus[i]["dices"]) for i in var.playersStatus if {i} != var.currPlayer]
     risk = calculating(botPoints, otherPoints)
-    dicesToThrow = chosingToThrow(dices, botPoints)
+    if dices == [None, None, None, None, None]:
+        dicesToThrow = [True, True, True, True, True]
+    else:
+        dicesToThrow = chosingToThrow(dices, botPoints)
     onTableCash = [var.playersStatus[i]["table"] for i in var.playersStatus]
     diff = (var.playersStatus[var.currPlayer]["table"] + var.playersStatus[var.currPlayer]["cash"])*risk
-    if diff >= max(onTableCash) and risk > 0.5:
+    if diff >= max(onTableCash) and risk > 0.7:
         var.playersStatus[var.currPlayer]["cash"] -= diff
         var.playersStatus[var.currPlayer]["table"] += diff
         dicesManage.throwing(dicesToThrow)
         dicesManage.moved()
-    elif diff >= max(onTableCash) and risk > 0.5:
-        var.playersStatus[var.currPlayer]["cash"] -= diff
-        var.playersStatus[var.currPlayer]["table"] += diff
+    elif diff >= max(onTableCash) and risk > 0:
+        var.playersStatus[var.currPlayer]["cash"] -= max(onTableCash) - var.playersStatus[var.currPlayer]["table"]
+        var.playersStatus[var.currPlayer]["table"] += max(onTableCash) - var.playersStatus[var.currPlayer]["table"]
+        dicesManage.throwing(dicesToThrow)
+        dicesManage.moved()
+    elif risk > 0.5:
+        var.playersStatus[var.currPlayer]["cash"] -= var.playersStatus[var.currPlayer]["cash"]
+        var.playersStatus[var.currPlayer]["table"] += var.playersStatus[var.currPlayer]["cash"]
         dicesManage.throwing(dicesToThrow)
         dicesManage.moved()
     else:
         dicesManage.passing('enter')
+        dicesManage.moved()
 
 # TODO: if the bot have dices (ex.) 1, 1, 4, 5, 6 he decides to throw only 4 and 5, but should be throwing 4, 5, 6

@@ -16,7 +16,7 @@ def movement(event):
                 var.throwDices[var.currDice-1] = not var.throwDices[var.currDice-1]
             elif event == 'enter':
                 onTableCash = [var.playersStatus[i]["table"] for i in var.playersStatus]
-                if accTable + var.wantToBet > 0 and var.wantToBet + accTable > max(onTableCash):
+                if accTable + var.wantToBet > 0 and var.wantToBet + accTable >= max(onTableCash):
                     var.playersStatus[var.currPlayer]["table"] += var.wantToBet
                     var.playersStatus[var.currPlayer]["cash"] -= var.wantToBet
                     dices.throwing(var.throwDices)
