@@ -101,6 +101,7 @@ def playerDownTable(player):
             result += "Cash: " + lane + (4-len(lane))*" " + "   "
         elif i == 4:
             lane = str(round(var.playersStatus[player]["points"], 3))
+            result += str(len(lane))
             result += "Points: " + lane + (5-len(lane))*" "
         else:
             result += "             "
@@ -154,9 +155,9 @@ def displaying():
             playerUpTable(playerUp)+
             "▏        bet: " + str(var.playersStatus[playerUp]["table"]) +(48-len(str(var.playersStatus[playerUp]["table"])))*" "+ "▏\n" +
             "▏        moves left: " + str(var.playersStatus[playerUp]["moves"]) + "                                        ▏\n" +
-            filler * 6 +
+            filler * 9 +
             "▏              Current on table:"+str(var.fullTable)+"                             ▏\n" +
-            filler*5+
+            filler*9+
             "▏        bet: " + str(var.playersStatus[playerDown]["table"]) +(48-len(str(var.playersStatus[playerDown]["table"])))*" "+ "▏\n" +
             "▏        want to bet: "+str(var.wantToBet)+(40-len(str(var.wantToBet)))*" "+ "▏\n" +
             playerDownTable(playerDown)+

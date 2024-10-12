@@ -9,8 +9,6 @@ mainMenuOutside = {
 ▏                                                             ▏
 ▏                                                             ▏
 ▏                                                             ▏
-▏                                                             ▏
-▏                                                             ▏
 ▏                       ==========                            ▏
 ▏                    || Dice Poker ||                         ▏
 ▏                       ==========                            ▏
@@ -19,6 +17,12 @@ mainMenuOutside = {
 ▏                                                             ▏
 ▏                                                             ▏""",
         """▏                                                             ▏
+▏                                                             ▏
+▏                                                             ▏
+▏                                                             ▏
+▏                                                             ▏
+▏                                                             ▏
+▏                                                             ▏
 ▏                                                             ▏
 ▏                                                             ▏
 ▏                                                             ▏
@@ -45,13 +49,19 @@ mainMenuOutside = {
 ▏                                                             ▏
 ▏                                                             ▏
 ▏                                                             ▏
+▏                                                             ▏
+▏                                                             ▏
+▏                                                             ▏
+▏                                                             ▏
+▏                                                             ▏
+▏                                                             ▏
 ▏▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏"""]
 }
 
 playersStatus = {
     0: "Closed",
-    1: "Player",
-    2: "Bot   "
+    1: "Bot   ",
+    2: "Player"
 }
 
 diffStatus = {
@@ -66,17 +76,25 @@ def displaying(status):
     mainMenu = {
         1: (mainMenuOutside[1][0] +
             """
+▏                        Continue                             ▏
+▏                                                             ▏
 ▏                        ▶ Play ◀                             ▏
 ▏                                                             ▏
 ▏                      How to play?                           ▏
 """ + mainMenuOutside[1][1]
             ),
         2: (mainMenuOutside[1][0]+"""
+▏                        Continue                             ▏
+▏                                                             ▏
 ▏                          Play                               ▏
 ▏                                                             ▏
 ▏                    ▶ How to play? ◀                         ▏
 """+mainMenuOutside[1][1]),
-        3: ("trzecia"),
+        3: ("""▏                        Continue                             ▏
+▏                                                             ▏
+▏                          Play                               ▏
+▏                                                             ▏
+▏                    ▶ How to play? ◀                         ▏"""),
         4: (""),
         5: (mainMenuOutside[2][0]+"""
 ▏                  ◀ Difficulty: """+diffStatus[playVar.difficulty]+""" ▶                 ▏
@@ -152,3 +170,33 @@ def displaying(status):
 """+mainMenuOutside[2][1])
     }
     return mainMenu[status]
+
+
+# TODO: Optimized displaying and added possibility of continue last game
+def select(line, line_number):
+    result = "▏"
+    result += (len(line)//2)*" "
+    if var.menuStatus == line_number:
+        result = "▶ " + line + " ◀"
+    else:
+        result = "  " + line + "  "
+    result += (len(line) // 2) * " "
+    result += "▏\n"
+
+
+def displaying_new():
+    result = ("""▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+▏                                                             ▏
+▏                                                             ▏
+▏                                                             ▏
+▏                                                             ▏
+▏                                                             ▏
+▏                                                             ▏
+▏                       ==========                            ▏
+▏                    || Dice Poker ||                         ▏
+▏                       ==========                            ▏
+▏                                                             ▏""")
+    if var.menuStatus < 5:
+        for i in range(5, 11):
+            result += select()
+    return result

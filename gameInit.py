@@ -10,7 +10,7 @@ def initing():
     var.throwDices = [True, True, True, True, True]
     var.passing = False
     var.playersStatus = {}
-    # var.players.sort(reverse=True)
+    var.players.sort(reverse=True)
     for i in var.players:
         if i != 0:
             position = len(var.playersStatus)+1
@@ -20,13 +20,13 @@ def initing():
                 "moves": 3,
                 "table": 0
             }
-            if i == 1:
+            if i == 2:
                 var.playersStatus[position]["playerType"] = "player"
                 if var.difficulty == 1:
                     var.playersStatus[position]["cash"] = 2000
                 else:
                     var.playersStatus[position]["cash"] = 1000
-            elif i == 2:
+            elif i == 1:
                 var.playersStatus[position]["playerType"] = "bot"
                 if var.difficulty == 1 or var.difficulty == 2:
                     var.playersStatus[position]["cash"] = 1000
