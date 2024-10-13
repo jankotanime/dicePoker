@@ -2,7 +2,7 @@ players = [2, 1, 0, 0]
 difficulty = 2
 endScreen = False
 play = False
-menuStatus = 1
+menuStatus = 2
 engine = True
 
 currPlayer = 1

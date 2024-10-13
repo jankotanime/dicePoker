@@ -5,10 +5,10 @@ filler = """▏                                                             ▏\
 
 dice = {
     None: {
-        1: "▁▁▁▁▁ ",
-        2: '▏    ▏',
-        3: '▏    ▏',
-        4: '☰☰☰☰☰ '
+        1: "      ",
+        2: '      ',
+        3: '      ',
+        4: '      '
     },
     1: {
         1: "▁▁▁▁▁ ",
@@ -48,63 +48,91 @@ dice = {
     }
 }
 
-gameOutside = {
-    1: """▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁\n""",
-    2: """▏▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏""",
-    3: "▏",
-    4:"▏\n",
-    5: "                                                             "
-}
+
+start = "▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁\n"
+end = "▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁"
 
 
-def playerUpTable(player):
-    dices = var.playersStatus[player]['dices']
+def player_up_table(player):
+    dices = player['dices']
     result = ""
     for i in range(1, 5):
         result += "▏"
         for j in dices:
             result += dice[j][i]+"   "
         if i == 2:
-            result += "Player "+str(player) + "        ▏\n"
-        elif i == 3:
-            lane = str(var.playersStatus[player]["cash"])
+            lane = str(player["cash"])
             result += "Cash: " + lane + (4-len(lane))*" " + "      ▏\n"
-        elif i == 4:
-            lane = str(round(var.playersStatus[player]["points"], 3))
+        elif i == 3:
+            lane = str(round(player["points"], 2))
             result += "Points: " + lane + (7-len(lane))*" " + " ▏\n"
+        elif i == 4:
+            lane = str(player["table"])
+            result += "Table: " + lane + (8-len(lane))*" " + " ▏\n"
         else:
             result += "                ▏\n"
     return result
 
-
-def playerUpTableForMore(player):
-    print(player)
-    dices = var.playersStatus[player]['dices']
+def statistics(player, i):
     result = ""
-    for i in range(1, 5):
-        result += "▏         "
-        for j in dices:
-            result += dice[j][i]+"   "
-        result += "       ▏\n"
+    if i == 1:
+        lane = str(var.wantToBet)
+        result += "Bet: " + lane + (9-len(lane))*" "
+    elif i == 2:
+        lane = str(round(player["points"], 2))
+        result += "Points: " + lane + (6-len(lane))*" "
+    elif i == 3:
+        lane = str(player["cash"])
+        result += "Cash: " + lane + (8-len(lane))*" "
+    elif i == 4:
+        lane = str(player["table"])
+        result += "Table: " + lane + (7-len(lane))*" "
     return result
 
 
-def playerDownTable(player):
-    dices = var.playersStatus[player]['dices']
+def center(i):
+    panel = {
+        7: "    DICE POKER       ",
+        8: "   ON TABLE: " + str(var.fullTable) + (8-len(str(var.fullTable)))*" "
+    }
+    return panel[i]
+
+def players_inside(player_left, player_right):
+    if player_left is not None:
+        dices_left = var.playersStatus[player_left]['dices']
+    else: 
+        dices_left = [None, None, None, None, None]
+    if player_right is not None:
+        dices_right = var.playersStatus[player_right]['dices']
+    else:
+        dices_right = [None, None, None, None, None]
+    result = ""
+    for i in range(1, 21):
+        result += "▏"
+        result += dice[dices_left[(i-1)//4]][(i-1)%4+1]
+        if player_left is not None and i in [2, 3, 4]:
+            result += statistics(var.playersStatus[player_left], i)
+        else:
+            result += "              "
+        if i in [7, 8]:
+            result += center(i)
+        else:
+            result += "                     "
+        if player_right is not None and i in [2, 3, 4]:
+            result += statistics(var.playersStatus[player_right], i)
+        else:
+            result += "              "
+        result += dice[dices_right[(i-1)//4]][(i-1)%4+1]
+        result += "▏\n"
+    return result
+
+
+def player_down_table(player):
+    dices = player['dices']
     result = ""
     for i in range(1, 5):
-        result += "▏   "
-        if i == 2:
-            result += "Player "+str(player) + "     "
-        elif i == 3:
-            lane = str(var.playersStatus[player]["cash"])
-            result += "Cash: " + lane + (4-len(lane))*" " + "   "
-        elif i == 4:
-            lane = str(round(var.playersStatus[player]["points"], 3))
-            result += str(len(lane))
-            result += "Points: " + lane + (5-len(lane))*" "
-        else:
-            result += "             "
+        result += "▏  "
+        result += statistics(player, 5-i)
         for j in dices:
             result += "   "+dice[j][i]
         result += "▏\n"
@@ -122,64 +150,26 @@ def playerDownTable(player):
     return result
 
 
-def playersInside(playerLeft, playerRight):
-    dicesLeft = var.playersStatus[playerLeft]['dices']
-    result = ""
-    if playerRight is not None:
-        dicesRight = var.playersStatus[playerRight]['dices']
-        for i in range(1, 21):
-            result += "▏"
-            result += dice[dicesLeft[(i-1)//4]][(i-1)%4+1]
-            result += "                                                "
-            result += dice[dicesRight[(i-1)//4]][(i - 1) % 4 + 1] + " ▏\n"
-        result += 3*filler
-    else:
-        for i in range(1, 21):
-            result += "▏"
-            result += dice[dicesLeft[(i-1)//4]][(i-1)%4+1]
-            result += "                                                       ▏\n"
-        result += 3*filler
-    return result
-
-
 def displaying():
+    result = start
+    player_left = None
+    player_right = None
     if var.players[2] == 0:
-        if var.currPlayer == 1:
-            playerUp = 2
-            playerDown = 1
-        else:
-            playerUp = 1
-            playerDown = 2
-        currWindow = (
-            gameOutside[1]+
-            playerUpTable(playerUp)+
-            "▏        bet: " + str(var.playersStatus[playerUp]["table"]) +(48-len(str(var.playersStatus[playerUp]["table"])))*" "+ "▏\n" +
-            "▏        moves left: " + str(var.playersStatus[playerUp]["moves"]) + "                                        ▏\n" +
-            filler * 9 +
-            "▏              Current on table:"+str(var.fullTable)+"                             ▏\n" +
-            filler*9+
-            "▏        bet: " + str(var.playersStatus[playerDown]["table"]) +(48-len(str(var.playersStatus[playerDown]["table"])))*" "+ "▏\n" +
-            "▏        want to bet: "+str(var.wantToBet)+(40-len(str(var.wantToBet)))*" "+ "▏\n" +
-            playerDownTable(playerDown)+
-            gameOutside[2]
-        )
+        player_up = (var.currPlayer) % 2 + 1
+        player_down = (var.currPlayer - 1) % 2 + 1
+    elif var.players[3] == 0:
+        player_down = (var.currPlayer - 1) % 3 + 1
+        player_left = var.currPlayer % 3 + 1
+        player_up = (var.currPlayer + 1) % 3 + 1
     else:
-        if var.players[3] != 0:
-            playerDown = (var.currPlayer - 1) % 4 + 1
-            playerLeft = var.currPlayer % 4 + 1
-            playerUp = (var.currPlayer + 1) % 4 + 1
-            playerRight = (var.currPlayer + 2) % 4 + 1
-        else:
-            playerDown = (var.currPlayer - 1) % 3 + 1
-            playerLeft = var.currPlayer % 3 + 1
-            playerUp = (var.currPlayer + 1) % 3 + 1
-            playerRight = None
-
-        currWindow = (
-            gameOutside[1]+
-            playerUpTableForMore(playerUp)+
-            playersInside(playerLeft, playerRight)+
-            playerDownTable(playerDown)+
-            gameOutside[2]
-        )
-    return currWindow
+        player_down = (var.currPlayer - 1) % 4 + 1
+        player_left = var.currPlayer % 4 + 1
+        player_up = (var.currPlayer + 1) % 4 + 1
+        player_right = (var.currPlayer + 2) % 4 + 1
+    result += player_up_table(var.playersStatus[player_up])
+    result += filler
+    result += players_inside(player_left, player_right)
+    result += filler * 2
+    result += player_down_table(var.playersStatus[player_down])
+    result += end
+    return result

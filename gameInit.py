@@ -2,9 +2,11 @@
 import variables as var
 import display
 import graphics.play as graphic
+import graphics.menu as menu
 
 
 def initing():
+    var.menuStatus = 1
     var.currPlayer = 1
     var.currDice = 1
     var.throwDices = [True, True, True, True, True]
@@ -39,3 +41,4 @@ def endGame():
     var.endScreen = True
     var.play = False
     var.menuStatus = 1
+    display.displaying(menu.displaying())

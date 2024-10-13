@@ -5,7 +5,6 @@ import play
 import menu
 import variables as var
 import variables as playvar
-import gameInit as init
 
 useableEvents = ['up', 'down', 'left', 'right', 'space', 'enter', 'q', 'v']
 

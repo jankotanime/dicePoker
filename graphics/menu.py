@@ -1,13 +1,12 @@
-import variables as playVar
 import variables as var
 
-playersStatus = {
+players_status = {
     0: "Closed",
     1: "Bot   ",
     2: "Player"
 }
 
-diffStatus = {
+diff_status = {
     1: "---Easy---",
     2: "--Normal--",
     3: "---Hard---",
@@ -19,11 +18,11 @@ def lines(number):
         1: "Continue",
         2: "Play",
         3: "How to play?",
-        5: "Difficulty: " + diffStatus[playVar.difficulty],
-        6: "Player 1: " + playersStatus[playVar.players[0]],
-        7: "Player 2: " + playersStatus[playVar.players[1]],
-        8: "Player 3: " + playersStatus[playVar.players[2]],
-        9: "Player 4: " + playersStatus[playVar.players[3]],
+        5: "Difficulty: " + diff_status[var.difficulty],
+        6: "Player 1: " + players_status[var.players[0]],
+        7: "Player 2: " + players_status[var.players[1]],
+        8: "Player 3: " + players_status[var.players[2]],
+        9: "Player 4: " + players_status[var.players[3]],
         10: "Start"
     }
     return result[number]
@@ -48,7 +47,7 @@ def select(line, line_number):
     return result
 
 
-def displaying_new():
+def displaying():
     result = start
     result += filler*5
     result += logo
