@@ -52,5 +52,5 @@ def chosing(event):
     if var.play:
         gameInit.initing()
     else:
-        display.displaying(graphic.displaying(var.menuStatus))
+        display.displaying(graphic.displaying_new())
 

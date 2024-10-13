@@ -8,3 +8,6 @@ def clear_terminal():
 def displaying(element):
     clear_terminal()
     print(element)
+
+
+# Wielkosc ekranu 61 x 

@@ -1,63 +1,6 @@
 import variables as playVar
 import variables as var
 
-mainMenuOutside = {
-    1: ["""▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
-▏                                                             ▏
-▏                                                             ▏
-▏                                                             ▏
-▏                                                             ▏
-▏                                                             ▏
-▏                                                             ▏
-▏                       ==========                            ▏
-▏                    || Dice Poker ||                         ▏
-▏                       ==========                            ▏
-▏                                                             ▏
-▏                                                             ▏
-▏                                                             ▏
-▏                                                             ▏""",
-        """▏                                                             ▏
-▏                                                             ▏
-▏                                                             ▏
-▏                                                             ▏
-▏                                                             ▏
-▏                                                             ▏
-▏                                                             ▏
-▏                                                             ▏
-▏                                                             ▏
-▏                                                             ▏
-▏                                                             ▏
-▏                                                             ▏
-▏                                                             ▏
-▏                                                             ▏
-▏▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏"""
-        ],
-    2: ["""▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
-▏                                                             ▏
-▏                                                             ▏
-▏                                                             ▏
-▏                                                             ▏
-▏                                                             ▏
-▏                       ==========                            ▏
-▏                    || Dice Poker ||                         ▏
-▏                       ==========                            ▏
-▏                                                             ▏
-▏                                                             ▏
-▏                                                             ▏""",
-        """▏                                                             ▏
-▏                                                             ▏
-▏                                                             ▏
-▏                                                             ▏
-▏                                                             ▏
-▏                                                             ▏
-▏                                                             ▏
-▏                                                             ▏
-▏                                                             ▏
-▏                                                             ▏
-▏                                                             ▏
-▏▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏"""]
-}
-
 playersStatus = {
     0: "Closed",
     1: "Bot   ",
@@ -71,132 +14,55 @@ diffStatus = {
     4: "Impossible"
 }
 
-
-def displaying(status):
-    mainMenu = {
-        1: (mainMenuOutside[1][0] +
-            """
-▏                        Continue                             ▏
-▏                                                             ▏
-▏                        ▶ Play ◀                             ▏
-▏                                                             ▏
-▏                      How to play?                           ▏
-""" + mainMenuOutside[1][1]
-            ),
-        2: (mainMenuOutside[1][0]+"""
-▏                        Continue                             ▏
-▏                                                             ▏
-▏                          Play                               ▏
-▏                                                             ▏
-▏                    ▶ How to play? ◀                         ▏
-"""+mainMenuOutside[1][1]),
-        3: ("""▏                        Continue                             ▏
-▏                                                             ▏
-▏                          Play                               ▏
-▏                                                             ▏
-▏                    ▶ How to play? ◀                         ▏"""),
-        4: (""),
-        5: (mainMenuOutside[2][0]+"""
-▏                  ◀ Difficulty: """+diffStatus[playVar.difficulty]+""" ▶                 ▏
-▏                                                             ▏
-▏                                                             ▏
-▏                    Player 1: """+playersStatus[playVar.players[0]]+"""                         ▏
-▏                    Player 2: """+playersStatus[playVar.players[1]]+"""                         ▏
-▏                    Player 3: """+playersStatus[playVar.players[2]]+"""                         ▏
-▏                    Player 4: """+playersStatus[playVar.players[3]]+"""                         ▏
-▏                                                             ▏
-▏                                                             ▏
-▏                         Start                               ▏
-"""+mainMenuOutside[2][1]),
-        6: (mainMenuOutside[2][0]+"""
-▏                   Difficulty: """+diffStatus[playVar.difficulty]+"""                    ▏
-▏                                                             ▏
-▏                                                             ▏
-▏                 ◀  Player 1: """+playersStatus[playVar.players[0]]+""" ▶                       ▏
-▏                    Player 2: """+playersStatus[playVar.players[1]]+"""                         ▏
-▏                    Player 3: """+playersStatus[playVar.players[2]]+"""                         ▏
-▏                    Player 4: """+playersStatus[playVar.players[3]]+"""                         ▏
-▏                                                             ▏
-▏                                                             ▏
-▏                         Start                               ▏
-"""+mainMenuOutside[2][1]),
-        7: (mainMenuOutside[2][0]+"""
-▏                    Difficulty: """+diffStatus[playVar.difficulty]+"""                   ▏
-▏                                                             ▏
-▏                                                             ▏
-▏                    Player 1: """+playersStatus[playVar.players[0]]+"""                         ▏
-▏                  ◀ Player 2: """+playersStatus[playVar.players[1]]+""" ▶                       ▏
-▏                    Player 3: """+playersStatus[playVar.players[2]]+"""                         ▏
-▏                    Player 4: """+playersStatus[playVar.players[3]]+"""                         ▏
-▏                                                             ▏
-▏                                                             ▏
-▏                         Start                               ▏
-"""+mainMenuOutside[2][1]),
-        8: (mainMenuOutside[2][0]+"""
-▏                    Difficulty: """+diffStatus[playVar.difficulty]+"""                   ▏
-▏                                                             ▏
-▏                                                             ▏
-▏                    Player 1: """+playersStatus[playVar.players[0]]+"""                         ▏
-▏                    Player 2: """+playersStatus[playVar.players[1]]+"""                         ▏
-▏                  ◀ Player 3: """+playersStatus[playVar.players[2]]+""" ▶                       ▏
-▏                    Player 4: """+playersStatus[playVar.players[3]]+"""                         ▏
-▏                                                             ▏
-▏                                                             ▏
-▏                         Start                               ▏
-"""+mainMenuOutside[2][1]),
-        9: (mainMenuOutside[2][0]+"""
-▏                    Difficulty: """+diffStatus[playVar.difficulty]+"""                   ▏
-▏                                                             ▏
-▏                                                             ▏
-▏                    Player 1: """+playersStatus[playVar.players[0]]+"""                         ▏
-▏                    Player 2: """+playersStatus[playVar.players[1]]+"""                         ▏
-▏                    Player 3: """+playersStatus[playVar.players[2]]+"""                         ▏
-▏                  ◀ Player 4: """+playersStatus[playVar.players[3]]+""" ▶                       ▏
-▏                                                             ▏
-▏                                                             ▏
-▏                         Start                               ▏
-"""+mainMenuOutside[2][1]),
-        10: (mainMenuOutside[2][0]+"""
-▏                    Difficulty: """+diffStatus[playVar.difficulty]+"""                   ▏
-▏                                                             ▏
-▏                                                             ▏
-▏                    Player 1: """+playersStatus[playVar.players[0]]+"""                         ▏
-▏                    Player 2: """+playersStatus[playVar.players[1]]+"""                         ▏
-▏                    Player 3: """+playersStatus[playVar.players[2]]+"""                         ▏
-▏                    Player 4: """+playersStatus[playVar.players[3]]+"""                         ▏
-▏                                                             ▏
-▏                                                             ▏
-▏                       ▶ Start ◀                             ▏
-"""+mainMenuOutside[2][1])
+def lines(number): 
+    result = {
+        1: "Continue",
+        2: "Play",
+        3: "How to play?",
+        5: "Difficulty: " + diffStatus[playVar.difficulty],
+        6: "Player 1: " + playersStatus[playVar.players[0]],
+        7: "Player 2: " + playersStatus[playVar.players[1]],
+        8: "Player 3: " + playersStatus[playVar.players[2]],
+        9: "Player 4: " + playersStatus[playVar.players[3]],
+        10: "Start"
     }
-    return mainMenu[status]
+    return result[number]
+
+start = "▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁\n"
+end = "▏▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏"
+filler = "▏                                                             ▏\n"
+logo = """▏                         ==========                          ▏
+▏                      || Dice Poker ||                       ▏
+▏                         ==========                          ▏\n"""
 
 
-# TODO: Optimized displaying and added possibility of continue last game
 def select(line, line_number):
     result = "▏"
-    result += (len(line)//2)*" "
+    result += ((57 - len(line))//2)*" "
     if var.menuStatus == line_number:
-        result = "▶ " + line + " ◀"
+        result += "▶ " + line + " ◀"
     else:
-        result = "  " + line + "  "
-    result += (len(line) // 2) * " "
+        result += "  " + line + "  "
+    result += ((58 - len(line)) // 2) * " "
     result += "▏\n"
+    return result
 
 
 def displaying_new():
-    result = ("""▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
-▏                                                             ▏
-▏                                                             ▏
-▏                                                             ▏
-▏                                                             ▏
-▏                                                             ▏
-▏                                                             ▏
-▏                       ==========                            ▏
-▏                    || Dice Poker ||                         ▏
-▏                       ==========                            ▏
-▏                                                             ▏""")
+    result = start
+    result += filler*5
+    result += logo
+    result += filler*3
     if var.menuStatus < 5:
+        for i in range(1, 4):
+            result += select(lines(i), i)
+            result += filler
+        result += filler*15
+    else:
         for i in range(5, 11):
-            result += select()
+            result += select(lines(i), i)
+            if i == 5 or i == 9:
+                result += filler
+        result += filler*13
+    result += end
     return result
