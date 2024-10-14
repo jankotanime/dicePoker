@@ -6,6 +6,9 @@ import bot
 import gameInit as init
 
 
+# TODO: Won money should be added to player's cash
+
+
 # Processing what human player want to do or if the player is computer it makes him to move
 def movement(event):
     if var.playersStatus[var.currPlayer]["playerType"] == "player":

@@ -23,6 +23,7 @@ while var.engine:
             elif playvar.endScreen:
                 if event.name == 'enter':
                     playvar.endScreen = False
+                    menu.chosing(None)
             else:
                 menu.chosing(event.name)
 print("Program shutting down...")

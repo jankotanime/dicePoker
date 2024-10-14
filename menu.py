@@ -3,10 +3,7 @@ import graphics.menu as graphic
 import display
 import variables as var
 
-
-# TODO: Improve the code, god look at that...
-
-
+# Function that changes menu status
 def chosing(event):
     if event == 'up':
         var.menuStatus -= 1
@@ -24,7 +21,8 @@ def chosing(event):
             var.menuStatus = 10
     elif event == 'enter' or event == 'space':
         if var.menuStatus == 1:
-            var.menuStatus = 1
+            var.play = True
+            gameInit.continuing()
         elif var.menuStatus == 2:
             var.menuStatus = 5
         elif var.menuStatus == 3:
@@ -43,9 +41,8 @@ def chosing(event):
                 var.players[var.menuStatus-6] = 0
         elif var.menuStatus == 10:
             var.play = True
-    if var.play:
-        gameInit.initing()
-    else:
+            gameInit.initing()
+    if not var.play:
         display.displaying(graphic.displaying())
 
 

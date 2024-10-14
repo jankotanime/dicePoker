@@ -37,6 +37,19 @@ def initing():
     display.displaying(graphic.displaying())
 
 
+def continuing():
+    var.menuStatus = 1
+    var.currPlayer = 1
+    var.currDice = 1
+    var.throwDices = [True, True, True, True, True]
+    var.passing = False
+    for player in var.playersStatus:
+        var.playersStatus[player]["dices"] = [None, None, None, None, None]
+        var.playersStatus[player]["points"] = 0
+        var.playersStatus[player]["moves"] = 3
+        var.playersStatus[player]["table"] = 0
+    display.displaying(graphic.displaying())
+
 def endGame():
     var.endScreen = True
     var.play = False

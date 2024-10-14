@@ -1,8 +1,6 @@
 import variables as var
 
 
-filler = """▏                                                             ▏\n"""
-
 dice = {
     None: {
         1: "      ",
@@ -48,10 +46,32 @@ dice = {
     }
 }
 
-
+filler = """▏                                                             ▏\n"""
 start = "▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁\n"
-end = "▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁"
+end = "▏▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▏"
 
+def statistics(player, i):
+    result = ""
+    if i == 1:
+        lane = str(var.wantToBet)
+        result += "Bet: " + lane + (9-len(lane))*" "
+    elif i == 2:
+        lane = str(round(player["points"], 2))
+        result += "Points: " + lane + (6-len(lane))*" "
+    elif i == 3:
+        lane = str(player["cash"])
+        result += "Cash: " + lane + (8-len(lane))*" "
+    elif i == 4:
+        lane = str(player["table"])
+        result += "Table: " + lane + (7-len(lane))*" "
+    return result
+
+def center(i):
+    panel = {
+        12: "    DICE POKER       ",
+        13: "   ON TABLE: " + str(var.fullTable) + (8-len(str(var.fullTable)))*" "
+    }
+    return panel[i]
 
 def player_up_table(player):
     dices = player['dices']
@@ -73,30 +93,6 @@ def player_up_table(player):
             result += "                ▏\n"
     return result
 
-def statistics(player, i):
-    result = ""
-    if i == 1:
-        lane = str(var.wantToBet)
-        result += "Bet: " + lane + (9-len(lane))*" "
-    elif i == 2:
-        lane = str(round(player["points"], 2))
-        result += "Points: " + lane + (6-len(lane))*" "
-    elif i == 3:
-        lane = str(player["cash"])
-        result += "Cash: " + lane + (8-len(lane))*" "
-    elif i == 4:
-        lane = str(player["table"])
-        result += "Table: " + lane + (7-len(lane))*" "
-    return result
-
-
-def center(i):
-    panel = {
-        7: "    DICE POKER       ",
-        8: "   ON TABLE: " + str(var.fullTable) + (8-len(str(var.fullTable)))*" "
-    }
-    return panel[i]
-
 def players_inside(player_left, player_right):
     if player_left is not None:
         dices_left = var.playersStatus[player_left]['dices']
@@ -114,7 +110,7 @@ def players_inside(player_left, player_right):
             result += statistics(var.playersStatus[player_left], i)
         else:
             result += "              "
-        if i in [7, 8]:
+        if i in [12, 13]:
             result += center(i)
         else:
             result += "                     "
@@ -125,7 +121,6 @@ def players_inside(player_left, player_right):
         result += dice[dices_right[(i-1)//4]][(i-1)%4+1]
         result += "▏\n"
     return result
-
 
 def player_down_table(player):
     dices = player['dices']
@@ -148,7 +143,6 @@ def player_down_table(player):
             result += "         "
     result += "▏\n"
     return result
-
 
 def displaying():
     result = start
