@@ -24,6 +24,12 @@ def movement(event):
                     var.playersStatus[var.currPlayer]["cash"] -= var.wantToBet
                     dices.throwing(var.throwDices)
                     dices.moved()
+                elif var.playersStatus[var.currPlayer]["moves"] == 1:
+                    var.wantToBet = max(var.playersStatus, key=lambda x: var.playersStatus[x]["table"]) - var.playersStatus[var.currPlayer]["table"]
+                    var.playersStatus[var.currPlayer]["table"] += var.wantToBet
+                    var.playersStatus[var.currPlayer]["cash"] -= var.wantToBet
+                    dices.throwing(var.throwDices)
+                    dices.moved()
                 else:
                     "Not enough on table"
             elif event == 'left' and var.currDice != 1:

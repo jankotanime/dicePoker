@@ -54,4 +54,7 @@ def endGame():
     var.endScreen = True
     var.play = False
     var.menuStatus = 1
+    winner = max(var.playersStatus, key=lambda x: var.playersStatus[x]["points"])
+    var.playersStatus[winner]["cash"] += var.fullTable
+    var.fullTable = 0
     display.displaying(menu.displaying())
