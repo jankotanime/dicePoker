@@ -5,7 +5,11 @@ import variables as var
 def move():
     dices = var.playersStatus[var.currPlayer]["dices"]
     # TODO: cannot pass in first turn (what if I smb has 5 x 6 in first turn?)
-    beting(dices)
+    players_best_points = max([dicesManage.pointCount(var.playersStatus[i]["dices"]) for i in var.playersStatus if i < var.currPlayer])
+    if players_best_points > 20 and var.playersStatus[var.currPlayer]["moves"] == 3:
+        dicesManage.passing('enter')
+    else:
+        beting(dices)
 
 
 # Calculating best movements that can player do
@@ -79,10 +83,13 @@ def beting(dices):
     else:
         dicesToThrow = chosingToThrow(dices, botPoints)
     onTableCash = [var.playersStatus[i]["table"] for i in var.playersStatus]
-    diff = var.playersStatus[var.currPlayer]["table"] + var.playersStatus[var.currPlayer]["cash"]
+    if var.playersStatus[var.currPlayer]["moves"] >= 2:
+        diff = var.playersStatus[var.currPlayer]["table"] + var.playersStatus[var.currPlayer]["cash"]
+    else:
+        diff = var.playersStatus[var.currPlayer]["table"]
     if diff >= max(onTableCash) and risk > 0.7 and var.playersStatus[var.currPlayer]["moves"]:
-        var.playersStatus[var.currPlayer]["cash"] -= diff*risk
-        var.playersStatus[var.currPlayer]["table"] += diff*risk
+        var.playersStatus[var.currPlayer]["cash"] -= (diff*risk)//100*100
+        var.playersStatus[var.currPlayer]["table"] += (diff*risk)//100*100
         dicesManage.throwing(dicesToThrow)
         dicesManage.moved()
     elif diff*risk >= max(onTableCash) and risk > 0:
