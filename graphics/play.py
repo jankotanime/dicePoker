@@ -71,6 +71,14 @@ def center(i):
         12: "    DICE POKER       ",
         13: "   ON TABLE: " + str(var.fullTable) + (8-len(str(var.fullTable)))*" "
     }
+    if var.playersStatus[var.currPlayer]['playerType'] == 'bot':
+        panel[14] = "    BOT IS MOVING    "
+    elif var.endScreen:
+        panel[14] = "   END OF THE GAME   "
+    elif var.passing:
+        panel[14] = " PRESS ENTER TO PASS "
+    elif var.playersStatus[var.currPlayer]['playerType'] == 'player':
+        panel[14] = "CHOOSE DICES TO THROW"
     return panel[i]
 
 def player_up_table(player):
@@ -110,7 +118,7 @@ def players_inside(player_left, player_right):
             result += statistics(var.playersStatus[player_left], i)
         else:
             result += "              "
-        if i in [12, 13]:
+        if i in [12, 14]:
             result += center(i)
         else:
             result += "                     "
