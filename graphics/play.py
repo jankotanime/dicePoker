@@ -68,17 +68,22 @@ def statistics(player, i):
 
 def center(i):
     panel = {
-        12: "    DICE POKER       ",
-        13: "   ON TABLE: " + str(var.fullTable) + (8-len(str(var.fullTable)))*" "
+        10: "    DICE POKER       ",
+        11: "                     ",
+        12: "   ON TABLE: " + str(var.fullTable) + (8-len(str(var.fullTable)))*" "
     }
     if var.playersStatus[var.currPlayer]['playerType'] == 'bot':
-        panel[14] = "    BOT IS MOVING    "
+        panel[13] = "    BOT IS MOVING    "
     elif var.endScreen:
-        panel[14] = "   END OF THE GAME   "
+        panel[13] = " END OF THE GAME     "
     elif var.passing:
-        panel[14] = " PRESS ENTER TO PASS "
+        panel[13] = " PRESS ENTER TO PASS "
     elif var.playersStatus[var.currPlayer]['playerType'] == 'player':
-        panel[14] = "CHOOSE DICES TO THROW"
+        panel[13] = "CHOOSE DICES TO THROW"
+    if var.endScreen:
+        panel[14] = "  WINNER: Player "+str(max(var.playersStatus, key=lambda x: var.playersStatus[x]["points"]))+"   "
+    else:
+        panel[14] = "                     "
     return panel[i]
 
 def player_up_table(player):
@@ -118,7 +123,7 @@ def players_inside(player_left, player_right):
             result += statistics(var.playersStatus[player_left], i)
         else:
             result += "              "
-        if i in [12, 14]:
+        if i in range(10, 15):
             result += center(i)
         else:
             result += "                     "
