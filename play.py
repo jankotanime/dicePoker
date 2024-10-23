@@ -6,8 +6,6 @@ import bot
 import gameInit as init
 
 
-# TODO: Won money should be added to player's cash
-
 
 # Processing what human player want to do or if the player is computer it makes him to move
 def movement(event):
@@ -57,7 +55,11 @@ def actPlayer():
 def tick(event):
     isAnyPlayer = any(var.playersStatus[x]["moves"] > 0 for x in var.playersStatus)
     if not isAnyPlayer:
-        init.endGame()
+        if actPlayer()["playerType"] == "player":
+            init.endGame()
+        else:
+            dices.moved()
+            tick(None)
     elif actPlayer()["moves"] > 0:
         movement(event)
         display.displaying(graphic.displaying())

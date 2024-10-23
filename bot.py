@@ -97,15 +97,8 @@ def beting(dices):
         var.playersStatus[var.currPlayer]["table"] += max(onTableCash) - var.playersStatus[var.currPlayer]["table"]
         dicesManage.throwing(dicesToThrow)
         dicesManage.moved()
-    elif risk > 0.1:
-        var.playersStatus[var.currPlayer]["cash"] -= var.playersStatus[var.currPlayer]["cash"]
-        var.playersStatus[var.currPlayer]["table"] += var.playersStatus[var.currPlayer]["cash"]
-        dicesManage.throwing(dicesToThrow)
-        dicesManage.moved()
     else:
-        var.playersStatus[var.currPlayer]["cash"] -= var.playersStatus[var.currPlayer]["cash"]
-        var.playersStatus[var.currPlayer]["table"] += var.playersStatus[var.currPlayer]["cash"]
-        dicesManage.throwing(dicesToThrow)
+        dicesManage.passing('enter')
         dicesManage.moved()
 
 # TODO: if the bot have dices (ex.) 1, 1, 4, 5, 6 he decides to throw only 4 and 5, but should be throwing 4, 5, 6
