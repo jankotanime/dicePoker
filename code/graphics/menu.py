@@ -34,6 +34,28 @@ logo = """▏                         ==========                          ▏
 ▏                      || Dice Poker ||                       ▏
 ▏                         ==========                          ▏\n"""
 
+how_to_play = {
+    1: """▏                                                             ▏
+▏1. The goal is to amass the biggest amount of money          ▏
+▏2. Every player has 3 turns to roll any of their dice        ▏
+▏3. If a player has on table less money than previous bet,    ▏
+▏   they must raise the stakes to still play                  ▏
+▏4. If a player passes he lost all money he put on table      ▏
+▏5. You cannot bet 0 money                                    ▏\n""",
+    2: """▏Points counting:                                             ▏
+▏The strongest dice configuration is five of kind,            ▏
+▏second strongest is four of kind, next is straight,          ▏
+▏after that there is full house, three of kind, two of kind   ▏
+▏and the last one is hight dice.                              ▏
+▏                                                             ▏
+▏ For example:                                                ▏
+▏ ⚅ ⚅ ⚅ ⚅ ⚅ > ⚀ ⚀ ⚀ ⚀ ⚀ > ⚅ ⚅ ⚅ ⚅ ⚄ > ⚀ ⚀ ⚀ ⚀ ⚁ > ⚁ ⚂ ⚃ ⚄ ⚅  ▏
+▏ ⚁ ⚂ ⚃ ⚄ ⚅ > ⚀ ⚁ ⚂ ⚃ ⚄ > ⚅ ⚅ ⚅ ⚄ ⚄ > ⚀ ⚀ ⚀ ⚁ ⚁ > ⚅ ⚅ ⚅ ⚄ ⚃  ▏
+▏ ⚅ ⚅ ⚅ ⚄ ⚃ > ⚀ ⚀ ⚀ ⚁ ⚂ > ⚅ ⚅ ⚂ ⚃ ⚄ > ⚀ ⚀ ⚁ ⚂ ⚃ > ⚀ ⚂ ⚃ ⚄ ⚅  ▏
+▏                                                             ▏
+▏                                                             ▏
+▏                                                             ▏\n"""
+}
 
 def select(line, line_number):
     result = "▏"
@@ -50,7 +72,9 @@ def select(line, line_number):
 def displaying():
     result = start
     if var.menuStatus == 4:
-        result += filler*32
+        result += how_to_play[1]
+        result += filler*16
+        result += how_to_play[2]
     else:
         result += filler*5
         result += logo

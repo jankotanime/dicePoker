@@ -25,7 +25,7 @@
     - Va banque: v
 
 ### Rules
-The goal is to amass the biggest amount of money but mostly is to not losing them. Every player has 3 turns to roll any of their dice. If a player has less money than previous bet, they must either raise the stakes or pass, losing all their current round bets. 
+The goal is to amass the biggest amount of money but mostly is to not losing them. Every player has 3 turns to roll any of their dice. If a player has on table less money than previous bet, they must either raise the stakes or pass, losing all their current round bets. 
 
 ## Game Features
 - Full Game Flow: Possible constant game, not only ties. Players can remain their money.
