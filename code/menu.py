@@ -5,20 +5,10 @@ import variables as var
 
 # Function that changes menu status
 def chosing(event):
-    if event == 'up':
+    if event == 'up' and var.menuStatus not in [1, 4, 5] and (var.menuStatus != 2 or len(var.playersStatus) != 0):
         var.menuStatus -= 1
-        if var.menuStatus == 0:
-            var.menuStatus = 1
-        elif var.menuStatus == 1 and len(var.playersStatus) == 0:
-            var.menuStatus = 2
-        elif var.menuStatus == 4:
-            var.menuStatus = 5
-    elif event == 'down':
+    elif event == 'down' and var.menuStatus not in [3, 4, 10]:
         var.menuStatus += 1
-        if var.menuStatus == 4:
-            var.menuStatus = 3
-        elif var.menuStatus == 11:
-            var.menuStatus = 10
     elif event == 'enter' or event == 'space':
         if var.menuStatus == 1:
             var.play = True
@@ -26,6 +16,8 @@ def chosing(event):
         elif var.menuStatus == 2:
             var.menuStatus = 5
         elif var.menuStatus == 3:
+            var.menuStatus = 4
+        elif var.menuStatus == 4:
             var.menuStatus = 3
         elif var.menuStatus == 5:
             if var.difficulty in [1, 2, 3]:

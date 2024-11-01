@@ -49,19 +49,22 @@ def select(line, line_number):
 
 def displaying():
     result = start
-    result += filler*5
-    result += logo
-    result += filler*3
-    if var.menuStatus < 5:
-        for i in range(1, 4):
-            result += select(lines(i), i)
-            result += filler
-        result += filler*15
+    if var.menuStatus == 4:
+        result += filler*32
     else:
-        for i in range(5, 11):
-            result += select(lines(i), i)
-            if i == 5 or i == 9:
+        result += filler*5
+        result += logo
+        result += filler*3
+        if var.menuStatus < 4:
+            for i in range(1, 4):
+                result += select(lines(i), i)
                 result += filler
-        result += filler*13
+            result += filler*15      
+        else:
+            for i in range(5, 11):
+                result += select(lines(i), i)
+                if i == 5 or i == 9:
+                    result += filler
+            result += filler*13
     result += end
     return result
